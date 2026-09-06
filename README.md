@@ -40,8 +40,10 @@ Beyond the usual train/val/test split (all sourced from the same training video)
 
 ## Screenshots
 
-![Prediction example](screenshots/Screenshot%202026-09-07%20002947.png)
-![Prediction example](screenshots/Screenshot%202026-09-07%20003227.png)
+![Prediction example](screenshots/Screenshot%202026-09-07%20004441.png)
+![Prediction example](screenshots/Screenshot%202026-09-07%20004455.png)
+![Prediction example](screenshots/Screenshot%202026-09-07%20004508.png)
+![Prediction example](screenshots/Screenshot%202026-09-07%20004520.png)
 
 ## Tech stack
 
