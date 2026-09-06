@@ -38,6 +38,7 @@ const unclearMessage = document.getElementById('unclearMessage');
 const leftRail = document.getElementById('leftRail');
 
 let faces = [];
+let selectedFaceIndex = -1;
 let videoUploaded = false;
 let analyzing = false;
 let capturedWidth = 0;
@@ -157,6 +158,7 @@ playPauseBtn.addEventListener('click', togglePlayPause);
 videoPlayer.addEventListener('play', () => {
     setPlayIcon(true);
     faces = [];
+    selectedFaceIndex = -1;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     canvas.style.pointerEvents = 'none';
     if (resultPanel.classList.contains('open')) {
@@ -194,6 +196,7 @@ videoPlayer.addEventListener('error', () => {
 
 videoPlayer.addEventListener('seeking', () => {
     faces = [];
+    selectedFaceIndex = -1;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     canvas.style.pointerEvents = 'none';
     analyzing = false;
@@ -300,6 +303,7 @@ function analyzeFrame() {
 
     analyzing = true;
     analyzeBtn.disabled = true;
+    selectedFaceIndex = -1;
     videoPlayer.pause();
     if (resultPanel.classList.contains('open')) {
         closeResultPanel();
@@ -365,16 +369,11 @@ analyzeBtn.addEventListener('click', analyzeFrame);
 
 function drawBoxes() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    faces.forEach(face => {
-        ctx.strokeStyle = '#d4af37';
+    faces.forEach((face, i) => {
+        const selected = i === selectedFaceIndex;
+        ctx.strokeStyle = selected ? '#4caf50' : '#d4af37';
         ctx.lineWidth = 2;
         ctx.strokeRect(face.x, face.y, face.width, face.height);
-
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.fillRect(face.x, face.y - 24, 100, 20);
-        ctx.fillStyle = '#fff';
-        ctx.font = '13px Arial';
-        ctx.fillText('Click for info', face.x + 4, face.y - 9);
     });
 }
 
@@ -389,6 +388,8 @@ canvas.addEventListener('click', function (e) {
     for (let i = 0; i < faces.length; i++) {
         let face = faces[i];
         if (x >= face.x && x <= face.x + face.width && y >= face.y && y <= face.y + face.height) {
+            selectedFaceIndex = i;
+            drawBoxes();
             updateStatus('Recognizing character...');
             loadingText.textContent = 'Recognizing…';
             loadingIndicator.hidden = false;
