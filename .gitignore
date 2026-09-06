@@ -1,0 +1,7 @@
+data/
+app/static/uploads/*
+!app/static/uploads/.gitkeep
+__pycache__/
+*.pyc
+venv/
+notebooks/.ipynb_checkpoints/
