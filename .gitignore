@@ -4,5 +4,6 @@ app/static/uploads/*
 __pycache__/
 *.pyc
 venv/
+.venv/
 notebooks/.ipynb_checkpoints/
 .vscode/
